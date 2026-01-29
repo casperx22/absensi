@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi PIK-R A'FORLING</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🌟 PIK-R A'FORLING</h1>
+            <p>Pusat Informasi dan Konseling Remaja</p>
+        </header>
+
+        <nav>
+            <button onclick="showTab('form-section')" class="nav-btn active">Isi Absen</button>
+            <button onclick="showTab('data-section')" class="nav-btn">Data Kehadiran</button>
+        </nav>
+
+        <section id="form-section" class="tab-content">
+            <div class="card">
+                <h2>Formulir Kehadiran</h2>
+                <form id="attendanceForm">
+                    <input type="text" id="nama" placeholder="Nama Lengkap" required>
+                    <input type="text" id="kelas" placeholder="Kelas (Contoh: XI-MIPA 1)" required>
+                    <select id="status">
+                        <option value="Hadir">Hadir</option>
+                        <option value="Izin">Izin</option>
+                        <option value="Sakit">Sakit</option>
+                    </select>
+                    <button type="submit" class="submit-btn">Kirim Absen</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="data-section" class="tab-content" style="display:none;">
+            <div class="card">
+                <h2>Rekap Data Absensi</h2>
+                <div class="table-container">
+                    <table id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Nama</th>
+                                <th>Kelas</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceBody">
+                            </tbody>
+                    </table>
+                </div>
+                <button onclick="clearData()" class="clear-btn">Hapus Semua Data</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
