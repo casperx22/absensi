@@ -1,56 +1,25 @@
-// Navigasi Tab
-function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    
-    document.getElementById(tabId).style.display = 'block';
-    event.currentTarget.classList.add('active');
-    
-    if(tabId === 'data-section') renderData();
+:root {
+    --merah: #e63946;
+    --biru: #1d3557;
+    --putih: #f1faee;
+    --hitam: #1d1d1d;
 }
 
-// Logika Form
-const attendanceForm = document.getElementById('attendanceForm');
-attendanceForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const dataAbsen = {
-        waktu: new Date().toLocaleString('id-ID'),
-        nama: document.getElementById('nama').value,
-        kelas: document.getElementById('kelas').value,
-        status: document.getElementById('status').value
-    };
-
-    // Simpan ke LocalStorage
-    let listAbsen = JSON.parse(localStorage.getItem('pikr_absen')) || [];
-    listAbsen.push(dataAbsen);
-    localStorage.setItem('pikr_absen', JSON.stringify(listAbsen));
-
-    alert('Absen berhasil terkirim!');
-    attendanceForm.reset();
-});
-
-// Menampilkan Data
-function renderData() {
-    const tableBody = document.getElementById('attendanceBody');
-    const listAbsen = JSON.parse(localStorage.getItem('pikr_absen')) || [];
-    
-    tableBody.innerHTML = '';
-    listAbsen.forEach(item => {
-        const row = `<tr>
-            <td>${item.waktu}</td>
-            <td>${item.nama}</td>
-            <td>${item.kelas}</td>
-            <td>${item.status}</td>
-        </tr>`;
-        tableBody.innerHTML += row;
-    });
-}
-
-// Hapus Data
-function clearData() {
-    if(confirm('Yakin ingin menghapus semua data?')) {
-        localStorage.removeItem('pikr_absen');
-        renderData();
-    }
-}
+body { font-family: sans-serif; background: var(--putih); margin: 0; padding: 0; }
+header { background: var(--biru); color: white; text-align: center; padding: 25px; border-bottom: 5px solid var(--merah); }
+.container { padding: 20px; max-width: 500px; margin: auto; }
+.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 5px solid var(--merah); margin-bottom: 20px; }
+h2 { color: var(--biru); text-align: center; }
+input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+button { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+.btn-primary { background: var(--merah); color: white; }
+.btn-admin { background: var(--biru); color: white; }
+.btn-cancel { background: #999; color: white; margin-top: 5px; }
+.btn-logout { background: var(--hitam); color: white; margin-top: 15px; }
+.admin-link { text-align: center; }
+.admin-link a { color: var(--biru); text-decoration: none; font-size: 0.9rem; }
+.table-container { overflow-x: auto; margin-top: 10px; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.9rem; }
+.data-table th { background: var(--biru); color: white; }
+@media (max-width: 480px) { .container { padding: 10px; } }
