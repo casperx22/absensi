@@ -1,76 +1,26 @@
-const SCRIPT_URL = "URL_WEB_APP_DARI_DEPLOY_KAMU"; 
-
-// --- LOGIKA FORM ---
-document.getElementById('absensiForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.innerText = "MENGIRIM...";
-    btn.disabled = true;
-
-    const dataBaru = {
-        nama: document.getElementById('nama').value,
-        kelas: document.getElementById('kelas').value,
-        ket: document.getElementById('keterangan').value,
-        materi: document.getElementById('materi').value,
-        bulan: String(new Date().getMonth() + 1).padStart(2, '0')
-    };
-
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(dataBaru)
-    })
-    .then(res => {
-        alert("Absensi Berhasil!");
-        document.getElementById('absensiForm').reset();
-        btn.innerText = "KIRIM ABSENSI";
-        btn.disabled = false;
-    })
-    .catch(err => {
-        alert("Gagal terhubung ke Sheets!");
-        btn.innerText = "KIRIM ABSENSI";
-        btn.disabled = false;
-    });
-});
-
-// --- LOGIKA LOGIN & ADMIN ---
-function showLogin() { 
-    document.getElementById('formSection').style.display = 'none'; 
-    document.getElementById('loginSection').style.display = 'block'; 
+:root {
+    --merah: #e63946;
+    --biru: #1d3557;
+    --putih: #f1faee;
+    --hitam: #1d1d1d;
 }
 
-function backToHome() { 
-    document.getElementById('loginSection').style.display = 'none'; 
-    document.getElementById('formSection').style.display = 'block'; 
-}
-
-function cekLogin() {
-    const u = document.getElementById('userAdmin').value;
-    const p = document.getElementById('passAdmin').value;
-    if(u === "adminAFORLING" && p === "012026") {
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('adminSection').style.display = 'block';
-        tampilkanData();
-    } else { alert("Data Salah!"); }
-}
-
-function tampilkanData() {
-    const filter = document.getElementById('filterBulan').value;
-    const tbody = document.getElementById('tabelBody');
-    tbody.innerHTML = "<tr><td colspan='3' style='text-align:center'>Loading...</td></tr>";
-
-    fetch(SCRIPT_URL)
-    .then(res => res.json())
-    .then(data => {
-        tbody.innerHTML = "";
-        const filtered = data.filter(row => row[4] == filter);
-        if(filtered.length === 0) {
-            tbody.innerHTML = "<tr><td colspan='3' style='text-align:center'>No Data</td></tr>";
-        } else {
-            filtered.forEach(row => {
-                tbody.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td></tr>`;
-            });
-        }
-    });
-}
-
-function logout() { location.reload(); }
+body { font-family: 'Segoe UI', sans-serif; background: var(--putih); margin: 0; padding: 0; }
+header { background: var(--biru); color: white; text-align: center; padding: 25px; border-bottom: 5px solid var(--merah); }
+.container { padding: 20px; max-width: 500px; margin: auto; }
+.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 5px solid var(--merah); margin-bottom: 20px; }
+h2 { color: var(--biru); text-align: center; margin-bottom: 20px; }
+.label-input { font-size: 0.85rem; font-weight: bold; color: var(--biru); display: block; margin-top: 10px; }
+input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+button { width: 100%; padding: 14px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.btn-primary { background: var(--merah); color: white; }
+.btn-admin { background: var(--biru); color: white; }
+.btn-cancel { background: #999; color: white; margin-top: 5px; }
+.btn-logout { background: var(--hitam); color: white; margin-top: 15px; }
+.admin-link { text-align: center; margin-top: 15px; }
+.admin-link a { color: var(--biru); text-decoration: none; font-weight: bold; }
+.table-container { overflow-x: auto; margin-top: 10px; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.85rem; }
+.data-table th { background: var(--biru); color: white; }
+@media (max-width: 480px) { .container { padding: 10px; } }
