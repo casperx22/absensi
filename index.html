@@ -17,14 +17,19 @@
     <div id="formSection" class="card">
         <h2>Isi Absensi Pertemuan</h2>
         <form id="absensiForm">
+            <label class="label-input">Tanggal Pertemuan:</label>
+            <input type="date" id="tanggal" required>
+            
             <input type="text" id="nama" placeholder="Nama Lengkap" required>
             <input type="text" id="kelas" placeholder="Kelas (contoh: XI-MIPA 1)" required>
+            
             <select id="keterangan" required>
                 <option value="">-- Pilih Keterangan --</option>
                 <option value="Hadir">Hadir</option>
                 <option value="Izin">Izin</option>
                 <option value="Sakit">Sakit</option>
             </select>
+            
             <textarea id="materi" placeholder="Materi hari ini..." rows="3" required></textarea>
             <button type="submit" class="btn-primary">KIRIM ABSENSI</button>
         </form>
@@ -61,7 +66,7 @@
         <div class="table-container">
             <table class="data-table">
                 <thead>
-                    <tr><th>Nama</th><th>Kelas</th><th>Ket</th></tr>
+                    <tr><th>Tgl</th><th>Nama</th><th>Ket</th></tr>
                 </thead>
                 <tbody id="tabelBody"></tbody>
             </table>
